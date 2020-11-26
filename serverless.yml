@@ -36,27 +36,32 @@ functions:
       - http:
           path: notes
           method: post
+          authorizer: aws_iam
   getItem:
     handler: handlers/getItem.main
     events:
       - http:
           path: notes/{id}
           method: get
+          authorizer: aws_iam
   getList:
     handler: handlers/getList.main
     events:
       - http:
           path: notes
           method: get
+          authorizer: aws_iam
   updateItem:
     handler: handlers/updateItem.main
     events:
       - http:
           path: notes/{id}
           method: put
+          authorizer: aws_iam
   deleteItem:
     handler: handlers/deleteItem.main
     events:
       - http:
           path: notes/{id}
           method: delete
+          authorizer: aws_iam
