@@ -22,23 +22,41 @@ provider:
       Action:
         - dynamodb:Scan
         - dynamodb:Query
-          - dynamodb:GetItem
-          - dynamodb:PutItem
-          - dynamodb:UpdateItem
-          - dynamodb:DeleteItem
-          - dynamodb:DescribeTable
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+        - dynamodb:DescribeTable
       Resource: "arn:aws:dynamodb:us-east-1:*:*"
 
 functions:
-  hello:
-    handler: handler.hello
-    events:
-      - http:
-          path: hello
-          method: get
   addItem:
-    handler: addItem.main
+    handler: handlers/addItem.main
     events:
       - http:
           path: notes
           method: post
+  getItem:
+    handler: handlers/getItem.main
+    events:
+      - http:
+          path: notes/{id}
+          method: get
+  getList:
+    handler: handlers/getList.main
+    events:
+      - http:
+          path: notes
+          method: get
+  updateItem:
+    handler: handlers/updateItem.main
+    events:
+      - http:
+          path: notes/{id}
+          method: put
+  deleteItem:
+    handler: handlers/deleteItem.main
+    events:
+      - http:
+          path: notes/{id}
+          method: delete
